@@ -4,6 +4,17 @@
 from solar_objects import Star, Planet
 
 
+def read_value(num):
+    """Переводит строку формата х.ххЕхх в число
+    Например, 1.4Е5 --> 140000
+    """
+    if 'E' in num:
+        value, power = map(float, num.split('E'))
+        return value * (10 ** power)
+    else:
+        return int(num)
+
+
 def read_space_objects_data_from_file(input_filename):
     """Cчитывает данные о космических объектах из файла, создаёт сами объекты
     и вызывает создание их графических образов
@@ -47,16 +58,16 @@ def parse_star_parameters(line, star):
     **line** — строка с описание звезды.
     **star** — объект звезды.
     """
-    #star.R, star.color, star.m, star.x, star.y, star.Vx, star.Vy = line.split()[]
-    star.R = int(line.split()[0])
-    star.color = line.split()[1]
-    star.m = int(line.split()[2])
-    star.x = int(line.split()[3])
-    star.y = int(line.split()[4])
-    star.Vx = int(line.split()[5])
-    star.Vy = int(line.split()[6])
+    star.R = read_value(line.split()[1])
+    star.color = line.split()[2]
+    star.m = read_value(line.split()[3])
+    star.x = read_value(line.split()[4])
+    star.y = read_value(line.split()[5])
+    star.Vx = read_value(line.split()[6]) * 10 ** 3
+    star.Vy = -read_value(line.split()[7]) * 10 ** 3
 
     pass  # FIXME: not done yet
+
 
 def parse_planet_parameters(line, planet):
     """Считывает данные о планете из строки.
@@ -73,13 +84,13 @@ def parse_planet_parameters(line, planet):
     **line** — строка с описание планеты.
     **planet** — объект планеты.
     """
-    planet.R = int(line.split()[0])
-    planet.color = line.split()[1]
-    planet.m = int(line.split()[2])
-    planet.x = int(line.split()[3])
-    planet.y = int(line.split()[4])
-    planet.Vx = int(line.split()[5])
-    planet.Vy = int(line.split()[6])
+    planet.R = read_value(line.split()[1])
+    planet.color = line.split()[2]
+    planet.m = read_value(line.split()[3])
+    planet.x = read_value(line.split()[4])
+    planet.y = read_value(line.split()[5])
+    planet.Vx = read_value(line.split()[6]) * 10 ** 3
+    planet.Vy = -read_value(line.split()[7]) * 10 ** 3
     pass  # FIXME: not done yet...
 
 
@@ -98,6 +109,7 @@ def write_space_objects_data_to_file(output_filename, space_objects):
         for obj in space_objects:
             print(out_file, "%s %d %s %f" % ('1', 2, '3', 4.5))
             # FIXME: should store real values
+
 
 # FIXME: хорошо бы ещё сделать функцию, сохранающую статистику в заданный файл...
 

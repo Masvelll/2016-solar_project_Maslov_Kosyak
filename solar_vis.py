@@ -12,7 +12,7 @@ header_font = "Arial-16"
 window_width = 800
 """Ширина окна"""
 
-window_height = 800
+window_height = 700
 """Высота окна"""
 
 scale_factor = None
@@ -24,7 +24,7 @@ scale_factor = None
 def calculate_scale_factor(max_distance):
     """Вычисляет значение глобальной переменной **scale_factor** по данной характерной длине"""
     global scale_factor
-    scale_factor = 0.4*min(window_height, window_width)/max_distance
+    scale_factor = 0.4 * min(window_height, window_width) / max_distance
     print('Scale factor:', scale_factor)
 
 
@@ -39,7 +39,7 @@ def scale_x(x):
     **x** — x-координата модели.
     """
 
-    return int(x*scale_factor) + window_width//2
+    return x * scale_factor + window_width // 2
 
 
 def scale_y(y):
@@ -54,7 +54,7 @@ def scale_y(y):
     **y** — y-координата модели.
     """
 
-    return int(y*scale_factor) + window_height // 2  # FIXME: not done yet
+    return y * scale_factor + window_height // 2
 
 
 def create_star_image(space, star):
@@ -85,7 +85,7 @@ def create_planet_image(space, planet):
     y = scale_y(planet.y)
     r = planet.R
     planet.image = space.create_oval([x - r, y - r], [x + r, y + r], fill=planet.color)
-    
+
     pass  # FIXME: сделать как у звезды
 
 
@@ -114,7 +114,8 @@ def update_object_position(space, body):
     r = body.R
     if x + r < 0 or x - r > window_width or y + r < 0 or y - r > window_height:
         space.coords(body.image, window_width + r, window_height + r,
-                     window_width + 2*r, window_height + 2*r)  # положить за пределы окна
+                     window_width + 2 * r, window_height + 2 * r)  # положить за пределы окна
+
     space.coords(body.image, x - r, y - r, x + r, y + r)
 
 
