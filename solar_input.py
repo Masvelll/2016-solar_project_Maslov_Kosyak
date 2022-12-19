@@ -4,15 +4,6 @@
 from solar_objects import Star, Planet
 
 
-def read_value(num):
-    """Переводит строку формата х.ххЕхх в число
-    Например, 1.4Е5 --> 140000
-    """
-    if 'E' in num:
-        value, power = map(float, num.split('E'))
-        return value * (10 ** power)
-    else:
-        return int(num)
 
 
 def read_space_objects_data_from_file(input_filename):
@@ -58,13 +49,13 @@ def parse_star_parameters(line, star):
     **line** — строка с описание звезды.
     **star** — объект звезды.
     """
-    star.R = read_value(line.split()[1])
+    star.R = float(line.split()[1])
     star.color = line.split()[2]
-    star.m = read_value(line.split()[3])
-    star.x = read_value(line.split()[4])
-    star.y = read_value(line.split()[5])
-    star.Vx = read_value(line.split()[6]) * 10 ** 3
-    star.Vy = -read_value(line.split()[7]) * 10 ** 3
+    star.m = float(line.split()[3])
+    star.x = float(line.split()[4])
+    star.y = float(line.split()[5])
+    star.Vx = float(line.split()[6])
+    star.Vy = float(line.split()[7])
 
     pass  # FIXME: not done yet
 
@@ -84,13 +75,13 @@ def parse_planet_parameters(line, planet):
     **line** — строка с описание планеты.
     **planet** — объект планеты.
     """
-    planet.R = read_value(line.split()[1])
+    planet.R = float(line.split()[1])
     planet.color = line.split()[2]
-    planet.m = read_value(line.split()[3])
-    planet.x = read_value(line.split()[4])
-    planet.y = read_value(line.split()[5])
-    planet.Vx = read_value(line.split()[6]) * 10 ** 3
-    planet.Vy = -read_value(line.split()[7]) * 10 ** 3
+    planet.m = float(line.split()[3])
+    planet.x = float(line.split()[4])
+    planet.y = float(line.split()[5])
+    planet.Vx = float(line.split()[6])
+    planet.Vy = float(line.split()[7])
     pass  # FIXME: not done yet...
 
 
@@ -112,6 +103,7 @@ def write_space_objects_data_to_file(output_filename, space_objects):
 
 
 # FIXME: хорошо бы ещё сделать функцию, сохранающую статистику в заданный файл...
+
 
 if __name__ == "__main__":
     print("This module is not for direct call!")
